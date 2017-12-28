@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Matrix Inversion Lemma on Jim Skinner</title>
+    <link>/tags/matrix-inversion-lemma/</link>
+    <description>Recent content in Matrix Inversion Lemma on Jim Skinner</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <lastBuildDate>Thu, 28 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/matrix-inversion-lemma/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Speeding up linear algebra computations using the Woodbury matrix identity</title>
+      <link>/post/speeding-up-linear-algebra-computations-using-the-woodbury-matrix-identity/</link>
+      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/speeding-up-linear-algebra-computations-using-the-woodbury-matrix-identity/</guid>
+      <description>I recently used this trick to obtain a 10x speedup on an R package I am working on, and was so happy with myself I thought I would share it.
+Say we have a low-rank plus diagonal matrix \(\mathbf{C} = \mathbf{W}\mathbf{W}^\top + \sigma^2\mathit{I}\) with \(d \times k\) matrix \(\mathbf{W}\) where \(d \gg k\). If we are interested in solving \(\mathbf{C}^{-1}\mathbf{A}\) for another \(d\times d\) matrix \(\mathbf{A}\), this would normally be achieved by Cholesky-decomposing \(\mathbf{C}\) then using forward/back-substitution to solve the system.</description>
+    </item>
+    
+  </channel>
+</rss>

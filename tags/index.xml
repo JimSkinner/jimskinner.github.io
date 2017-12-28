@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Jim Skinner</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on Jim Skinner</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <lastBuildDate>Thu, 28 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Code Optimisation</title>
+      <link>/tags/code-optimisation/</link>
+      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/code-optimisation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linear Algebra</title>
+      <link>/tags/linear-algebra/</link>
+      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/linear-algebra/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Matrix Inversion Lemma</title>
+      <link>/tags/matrix-inversion-lemma/</link>
+      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/matrix-inversion-lemma/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Woodbury</title>
+      <link>/tags/woodbury/</link>
+      <pubDate>Thu, 28 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/woodbury/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

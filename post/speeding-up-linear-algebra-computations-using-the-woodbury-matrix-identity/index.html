@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-uk">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <title>
+    
+    
+     Speeding up linear algebra computations using the Woodbury matrix identity 
+    
+  </title>
+  <link rel="canonical" href="/post/speeding-up-linear-algebra-computations-using-the-woodbury-matrix-identity/">
+
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  
+</head>
+
+<body>
+<section id=nav>
+  <h1><a href="/">Jim Skinner</a></h1>
+  <ul>
+    
+    <li><a href="https://jimskinner.github.io">Home</a></li>
+    
+    <li><a href="https://warwick.ac.uk/JSkinner">Academic</a></li>
+    
+    <li><a href="https://twitter.com/JimRSkinner">Twitter</a></li>
+    
+    <li><a href="https://github.com/JimSkinner">GitHub</a></li>
+    
+  </ul>
+</section>
+
+
+<section id=content>
+  <h1> Speeding up linear algebra computations using the Woodbury matrix identity </h1>
+
+  <div id=sub-header>
+    Jim Skinner · 2017/12/28 · 2 minute read
+  </div>
+
+  <div class="entry-content">
+    <p>I recently used this trick to obtain a 10x speedup on an R package I am working on, and was so happy with myself I thought I would share it.</p>
+<p>Say we have a low-rank plus diagonal matrix <span class="math inline">\(\mathbf{C} = \mathbf{W}\mathbf{W}^\top + \sigma^2\mathit{I}\)</span> with <span class="math inline">\(d \times k\)</span> matrix <span class="math inline">\(\mathbf{W}\)</span> where <span class="math inline">\(d \gg k\)</span>. If we are interested in solving <span class="math inline">\(\mathbf{C}^{-1}\mathbf{A}\)</span> for another <span class="math inline">\(d\times d\)</span> matrix <span class="math inline">\(\mathbf{A}\)</span>, this would normally be achieved by Cholesky-decomposing <span class="math inline">\(\mathbf{C}\)</span> then using forward/back-substitution to solve the system. The computational complexity here is <span class="math inline">\(\mathcal{O}(d^3)\)</span> for the Cholesky decomposition, and <span class="math inline">\(\mathcal{O}(d^2)\)</span> for each forward/back-substitution <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p>
+However, we can do a lot better than this using the structure of <span class="math inline">\(\mathbf{C}\)</span>. Using the <a href="https://en.wikipedia.org/wiki/Woodbury_matrix_identity">Woodbury matrix identity</a>, the inverse of <span class="math inline">\(\mathbf{C}\)</span> can be written down in closed form:
+<span class="math display" id="eq:Cinv">\[\begin{equation}
+  \mathbf{C}^{-1} = \sigma^{-2}\mathit{I} - \sigma^{-2}\mathbf{W}\mathbf{M}^{-1}\mathbf{W}^\top
+  \tag{1}
+\end{equation}\]</span>
+where we have introduced the small <span class="math inline">\(k\times k\)</span> matrix <span class="math inline">\(\mathbf{M} = \mathbf{W}^\top\mathbf{W} + \sigma^2\mathit{I}\)</span>. Now we could construct <span class="math inline">\(\mathbf{C}^{-1}\)</span> from this directly and solve <span class="math inline">\(\mathbf{C}^{-1}\mathbf{A}\)</span> with a matrix multiplication, however multiplying these two <span class="math inline">\(d\times d\)</span> matrices together is still <span class="math inline">\(\mathcal{O}(d^3)\)</span> operations! Instead, we can post-multiply equation <a href="#eq:Cinv">(1)</a> by <span class="math inline">\(\mathbf{A}\)</span> to obtain
+<span class="math display" id="eq:CinvA">\[\begin{equation}
+  \mathbf{C}^{-1}\mathbf{A} = \sigma^{-2}\mathbf{A} - \sigma^{-2}\mathbf{W}\mathbf{M}^{-1}\mathbf{W}^\top\mathbf{A}
+  \tag{2}
+\end{equation}\]</span>
+<p>Now if we compute the second term as <span class="math inline">\((\mathbf{W}\mathbf{M}^{-1})(\mathbf{W}^\top\mathbf{A})\)</span>, then Equation <a href="#eq:CinvA">(2)</a> can be computed in <span class="math inline">\(\mathcal{O}(d^2k + dk^3)\)</span> operations, since there are no <span class="math inline">\((d\times d)\times(d\times d)\)</span> matrix multiplications. If <span class="math inline">\(d\gg k\)</span> this can produce considerable speedups.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations#Matrix_algebra" class="uri">https://en.wikipedia.org/wiki/Computational_complexity_of_mathematical_operations#Matrix_algebra</a><a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+  </div>
+
+  <div id=links>
+    
+    
+  </div>
+</section>
+
+<section id="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+      
+      
+      if (window.location.hostname == "localhost")
+                return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = '';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+  
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+</body>
+</html>
+
