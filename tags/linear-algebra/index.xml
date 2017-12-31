@@ -6,10 +6,20 @@
     <description>Recent content in Linear Algebra on Jim Skinner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-uk</language>
-    <lastBuildDate>Thu, 28 Dec 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 31 Dec 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/linear-algebra/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Elegant linear albegra in R with the Matrix package</title>
+      <link>/post/elegant-linear-albegra-in-r-with-the-matrix-package/</link>
+      <pubDate>Sun, 31 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/elegant-linear-albegra-in-r-with-the-matrix-package/</guid>
+      <description>The Matrix R package is a fantastic tool, allowing the user to construct structured matrices of different types (triangular, symmetric, sparse, etc). A common set of operations are offered for all types (\(+\), \(-\), solve, …), meaning differently typed matrices can all be treated the same. Importantly, the method of storage for each matrix type takes advantage of its structure, as do the operations on these matrices.
+Below I construct 4 \(d\times d\) matrices of different types: general dense, positive semidefinite, sparse and symmetric sparse.</description>
+    </item>
     
     <item>
       <title>Speeding up linear algebra computations using the Woodbury matrix identity</title>

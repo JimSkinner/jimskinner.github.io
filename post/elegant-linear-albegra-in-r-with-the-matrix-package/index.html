@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-uk">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <title>
+    
+    
+     Elegant linear albegra in R with the Matrix package 
+    
+  </title>
+  <link rel="canonical" href="/post/elegant-linear-albegra-in-r-with-the-matrix-package/">
+
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  
+</head>
+
+<body>
+<section id=nav>
+  <h1><a href="/">Jim Skinner</a></h1>
+  <ul>
+    
+    <li><a href="https://jimskinner.github.io">Home</a></li>
+    
+    <li><a href="https://warwick.ac.uk/JSkinner">Academic</a></li>
+    
+    <li><a href="https://twitter.com/JimRSkinner">Twitter</a></li>
+    
+    <li><a href="https://github.com/JimSkinner">GitHub</a></li>
+    
+  </ul>
+</section>
+
+
+<section id=content>
+  <h1> Elegant linear albegra in R with the Matrix package </h1>
+
+  <div id=sub-header>
+    Jim Skinner · 2017/12/31 · 6 minute read
+  </div>
+
+  <div class="entry-content">
+    <p>The <a href="https://cran.r-project.org/web/packages/Matrix/index.html">Matrix</a> R package is a fantastic tool, allowing the user to construct structured matrices of different types (triangular, symmetric, sparse, etc). A common set of operations are offered for all types (<span class="math inline">\(+\)</span>, <span class="math inline">\(-\)</span>, <code>solve</code>, …), meaning differently typed matrices can all be treated the same. Importantly, the method of storage for each matrix type takes advantage of its structure, as do the operations on these matrices.</p>
+<p>Below I construct 4 <span class="math inline">\(d\times d\)</span> matrices of different types: general dense, positive semidefinite, sparse and symmetric sparse.</p>
+<pre class="r"><code>  library(Matrix)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Matrix&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     crossprod, tcrossprod</code></pre>
+<pre class="r"><code>  d &lt;- 1000
+
+  # Build a dense, symmetric and a sparse matrix. All are size d*d.
+  A    &lt;- Matrix(rnorm(d*d), nrow=d, ncol=d) # Dense matrix
+  Asym &lt;- as(crossprod(A), &quot;dppMatrix&quot;) # Symmetric, positive semidefinite matrix
+  Asp  &lt;- drop0(A, tol=2) # Sparse matrix
+  Aspsym &lt;- drop0(Asym, tol=50) # Sparse symmetric matrix</code></pre>
+<p><code>crossprod</code> is from the <code>Matrix</code> package; this works similarly to the <code>base::crossprod</code> function but returns a symmetric matrix class. I have used <code>as( , &quot;dppMatrix&quot;)</code> to cast this to a <em>packed</em> positive-semidefinite matrix, so only one triangle is stored. <code>drop0</code> is used to remove any elements with absolute value below <code>tol</code>. This code produces <code>Asp</code> and <code>Aspsym</code> which are 4.6% and 11.5% sparse respectively.</p>
+<p>The classes of the matrices reflect their structure.</p>
+<pre class="r"><code>  vapply(list(A, Asym, Asp, Aspsym), class, character(1))</code></pre>
+<pre><code>## [1] &quot;dgeMatrix&quot; &quot;dppMatrix&quot; &quot;dgCMatrix&quot; &quot;dsCMatrix&quot;</code></pre>
+<p>The leading <code>d</code> in each case shows it is a matrix of doubles. The following two letters give us the structure: <code>ge</code> tells us it is a <em>general</em> matrix; <code>pp</code> tells us that the matrix is positive-semidefinite in packed storage (only one triangle stored); <code>gC</code> is for a general, column-compressed sparse matrix, and <code>sC</code> indicates a symmetric column-compressed sparse matrix. Only <code>A</code> stores all <span class="math inline">\(d^2\)</span> elements, so has the largest memory footprint.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">A</th>
+<th align="left">Asym</th>
+<th align="left">Asp</th>
+<th align="left">Aspsym</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">8 MB</td>
+<td align="left">4.01 MB</td>
+<td align="left">556 kB</td>
+<td align="left">705 kB</td>
+</tr>
+</tbody>
+</table>
+<p>My favourite feature is the very general <code>Matrix::solve</code> method. If we have matrices <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{B}\)</span>, <code>X &lt;- solve(A, B)</code> solves <span class="math inline">\(\mathbf{AX} = \mathbf{B}\)</span>. This works very similarly to <code>base::solve</code>, but solves for <span class="math inline">\(\mathbf{X}\)</span> using a decomposition appropriate for the type of <span class="math inline">\(\mathbf{A}\)</span>. Furthermore, whenever a decomposition is performed, this is saved in the <code>@factors</code> slot of the original matrix. This decomposition is then reused whenever a decomposition would be performed, such as solving a system, or calculating a determinant or condition number.</p>
+<pre class="r"><code>  B &lt;- Matrix(rnorm(d*10), ncol=10)
+
+  X1 &lt;- solve(A, B)
+  X2 &lt;- solve(Asym, B)
+  X3 &lt;- solve(Asp, B)
+  X4 &lt;- solve(Aspsym, B)</code></pre>
+<p>It is interesting to inspect the saved decompositions, which I do below. For more detail, consult the documentation on the <a href="https://cran.r-project.org/web/packages/Matrix/index.html">Matrix CRAN page</a>.</p>
+<pre class="r"><code>  str(A@factors)</code></pre>
+<pre><code>## List of 1
+##  $ LU:Formal class &#39;denseLU&#39; [package &quot;Matrix&quot;] with 4 slots
+##   .. ..@ x       : num [1:1000000] 3.3793 0.4243 -0.0323 -0.1307 -0.536 ...
+##   .. ..@ perm    : int [1:1000] 464 63 35 597 484 278 20 250 56 488 ...
+##   .. ..@ Dimnames:List of 2
+##   .. .. ..$ : NULL
+##   .. .. ..$ : NULL
+##   .. ..@ Dim     : int [1:2] 1000 1000</code></pre>
+<p>We can see that for the general dense matrix, an LU decomposition was performed, which is fairly standard. Looking at the decomposition for the symmetric dense matrix, we see it has type <code>pCholesky</code>: a packed Cholesky decomposition (does not store the triangle of zeroes). This is good behaviour; we do not need to worry about the most numerically stable method of solving our system, since <code>Matrix</code> figures it out for us.</p>
+<pre class="r"><code>  str(Asym@factors)</code></pre>
+<pre><code>## List of 1
+##  $ pCholesky:Formal class &#39;pCholesky&#39; [package &quot;Matrix&quot;] with 5 slots
+##   .. ..@ x       : num [1:500500] 33.289 0.317 31.733 -0.614 -0.159 ...
+##   .. ..@ Dim     : int [1:2] 1000 1000
+##   .. ..@ Dimnames:List of 2
+##   .. .. ..$ : NULL
+##   .. .. ..$ : NULL
+##   .. ..@ uplo    : chr &quot;U&quot;
+##   .. ..@ diag    : chr &quot;N&quot;</code></pre>
+<p>More interesting decompositions appear in the sparse matrices. Starting with the symmetric matrix, we wee a decomposition of type <code>sparseLU</code>.</p>
+<pre class="r"><code>  str(Asp@factors)</code></pre>
+<pre><code>## List of 1
+##  $ LU:Formal class &#39;sparseLU&#39; [package &quot;Matrix&quot;] with 5 slots
+##   .. ..@ L  :Formal class &#39;dtCMatrix&#39; [package &quot;Matrix&quot;] with 7 slots
+##   .. .. .. ..@ i       : int [1:462748] 0 45 58 67 85 92 96 103 113 142 ...
+##   .. .. .. ..@ p       : int [1:1001] 0 59 108 158 198 237 331 379 419 460 ...
+##   .. .. .. ..@ Dim     : int [1:2] 1000 1000
+##   .. .. .. ..@ Dimnames:List of 2
+##   .. .. .. .. ..$ : NULL
+##   .. .. .. .. ..$ : NULL
+##   .. .. .. ..@ x       : num [1:462748] 1 0.601 0.714 0.987 0.71 ...
+##   .. .. .. ..@ uplo    : chr &quot;L&quot;
+##   .. .. .. ..@ diag    : chr &quot;N&quot;
+##   .. ..@ U  :Formal class &#39;dtCMatrix&#39; [package &quot;Matrix&quot;] with 7 slots
+##   .. .. .. ..@ i       : int [1:464587] 0 1 2 3 4 2 5 6 7 8 ...
+##   .. .. .. ..@ p       : int [1:1001] 0 1 2 3 4 5 7 8 9 10 ...
+##   .. .. .. ..@ Dim     : int [1:2] 1000 1000
+##   .. .. .. ..@ Dimnames:List of 2
+##   .. .. .. .. ..$ : NULL
+##   .. .. .. .. ..$ : NULL
+##   .. .. .. ..@ x       : num [1:464587] 3.38 2.97 -3.11 3.64 3.09 ...
+##   .. .. .. ..@ uplo    : chr &quot;U&quot;
+##   .. .. .. ..@ diag    : chr &quot;N&quot;
+##   .. ..@ p  : int [1:1000] 463 62 277 14 272 152 19 388 94 509 ...
+##   .. ..@ q  : int [1:1000] 0 1 2 3 4 5 6 7 8 9 ...
+##   .. ..@ Dim: int [1:2] 1000 1000</code></pre>
+<p>This is similar to the regular LU decomposition <span class="math inline">\(\mathbf{A} = \mathbf{LU}\)</span>, but has two new pivot matrices <span class="math inline">\(\mathbf{P}\)</span>, <span class="math inline">\(\mathbf{Q}\)</span>. The sparse LU decomposes <span class="math inline">\(\mathbf{A} = \mathbf{P}^\top\mathbf{LUQ}\)</span>, where the pivots are chosen such that <span class="math inline">\(\mathbf{L}\)</span> and <span class="math inline">\(\mathbf{U}\)</span> are sparse. This can be seen in the slots <code>@L</code>, <code>@U</code>. Such decomposition-sparsity is neccesary when dealing with sparse matrices; if we required a dense decomposition of the same size as the original matrix, then we would lose all benefit of using a sparse matrix in the first place.</p>
+<p>Finally, the class of the decomposition for <code>Aspsym</code> is <code>dCHMsimpl</code>. According to the <a href="https://cran.r-project.org/web/packages/Matrix/Matrix.pdf">Matrix reference manual</a>, this inherits from a more general class of ‘’CHOLMOD-based Cholesky factorizations of symmetric, sparse, compressed, column-oriented matrices’’.</p>
+<p>In overview, I really like the matrix package because it becomes possible to write a single method that can deal with many matrix types without detailed knowledge of large numbers of matrix decompositions. Even without matrix inversions, I have experienced significant speed increases just from storing symmetric matrices as their appropriate <code>Matrix</code> class, since any addition/multiplication only needs to consider a single triangle. Methods <code>crossprod</code> and <code>symmpart</code> are also lifesavers when constructing symmetric matrices, as it means avoiding going through large general dense matrices during construction.</p>
+
+  </div>
+
+  <div id=links>
+    
+      <a class="basic-alignment left" href="/post/speeding-up-linear-algebra-computations-using-the-woodbury-matrix-identity/">&laquo; Speeding up linear algebra computations using the Woodbury matrix identity</a>
+    
+    
+  </div>
+</section>
+
+<section id="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+      
+      
+      if (window.location.hostname == "localhost")
+                return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = '';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+  
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+</body>
+</html>
+
