@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Expectation Maximisation on Jim Skinner</title>
+    <link>/tags/expectation-maximisation/</link>
+    <description>Recent content in Expectation Maximisation on Jim Skinner</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-uk</language>
+    <lastBuildDate>Wed, 10 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/expectation-maximisation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Unit Tests for Expectation Maximisation</title>
+      <link>/post/unit-tests-for-expectation-maximisation/</link>
+      <pubDate>Wed, 10 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/unit-tests-for-expectation-maximisation/</guid>
+      <description>I in the middle of producing an R package implementing a statistical model which finds a maximum-likelihood set of parameters \(\theta\) using Expectation Maximisation (EM). Implementing EM can be tricky, since bugs can have non-obvious consequences, such as converging to the wrong set of parameters or not converging at all. However, EM turns out to be very easy to write unit tests for.
+In maximising the log posterior, EM iterates between two steps:</description>
+    </item>
+    
+  </channel>
+</rss>
