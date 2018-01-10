@@ -17,7 +17,7 @@
       <pubDate>Wed, 10 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/unit-tests-for-expectation-maximisation/</guid>
-      <description>I in the middle of producing an R package implementing a statistical model which finds a maximum-likelihood set of parameters \(\theta\) using Expectation Maximisation (EM). Implementing EM can be tricky, since bugs can have non-obvious consequences, such as converging to the wrong set of parameters or not converging at all. However, EM turns out to be very easy to write unit tests for.
+      <description>I’m in the middle of producing an R package implementing a statistical model which finds a maximum-likelihood set of parameters \(\theta\) using Expectation Maximisation (EM). Implementing EM can be tricky, since bugs can have non-obvious consequences, such as converging to the wrong set of parameters or not converging at all. However, EM turns out to be very easy to write unit tests for.
 In maximising the log posterior, EM iterates between two steps:</description>
     </item>
     
