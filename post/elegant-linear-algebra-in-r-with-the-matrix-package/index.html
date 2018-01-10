@@ -60,7 +60,7 @@
   Asym &lt;- as(crossprod(A), &quot;dppMatrix&quot;) # Symmetric, positive semidefinite matrix
   Asp  &lt;- drop0(A, tol=2) # Sparse matrix
   Aspsym &lt;- drop0(Asym, tol=50) # Sparse symmetric matrix</code></pre>
-<p><code>crossprod</code> is from the <code>Matrix</code> package; this works similarly to the <code>base::crossprod</code> function but returns a symmetric matrix class. I have used <code>as( , &quot;dppMatrix&quot;)</code> to cast this to a <em>packed</em> positive-semidefinite matrix, so only one triangle is stored. <code>drop0</code> is used to remove any elements with absolute value below <code>tol</code>. This code produces <code>Asp</code> and <code>Aspsym</code> which are 4.6% and 11.4% sparse respectively.</p>
+<p><code>crossprod</code> is from the <code>Matrix</code> package; this works similarly to the <code>base::crossprod</code> function but returns a symmetric matrix class. I have used <code>as( , &quot;dppMatrix&quot;)</code> to cast this to a <em>packed</em> positive-semidefinite matrix, so only one triangle is stored. <code>drop0</code> is used to remove any elements with absolute value below <code>tol</code>. This code produces <code>Asp</code> and <code>Aspsym</code> which are 4.6% and 11.5% sparse respectively.</p>
 <p>The classes of the matrices reflect their structure.</p>
 <pre class="r"><code>  vapply(list(A, Asym, Asp, Aspsym), class, character(1))</code></pre>
 <pre><code>## [1] &quot;dgeMatrix&quot; &quot;dppMatrix&quot; &quot;dgCMatrix&quot; &quot;dsCMatrix&quot;</code></pre>
@@ -91,10 +91,10 @@ Aspsym
 4.01 MB
 </td>
 <td style="text-align:left;">
-553 kB
+552 kB
 </td>
 <td style="text-align:left;">
-696 kB
+701 kB
 </td>
 </tr>
 </tbody>
@@ -110,8 +110,8 @@ Aspsym
 <pre class="r"><code>  str(A@factors)</code></pre>
 <pre><code>## List of 1
 ##  $ LU:Formal class &#39;denseLU&#39; [package &quot;Matrix&quot;] with 4 slots
-##   .. ..@ x       : num [1:1000000] 3.607 0.35 0.201 -0.391 0.263 ...
-##   .. ..@ perm    : int [1:1000] 562 931 161 736 542 314 526 585 376 239 ...
+##   .. ..@ x       : num [1:1000000] 3.7 0.207 -0.341 0.415 -0.243 ...
+##   .. ..@ perm    : int [1:1000] 353 391 994 637 480 732 680 583 293 734 ...
 ##   .. ..@ Dimnames:List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : NULL
@@ -120,7 +120,7 @@ Aspsym
 <pre class="r"><code>  str(Asym@factors)</code></pre>
 <pre><code>## List of 1
 ##  $ pCholesky:Formal class &#39;pCholesky&#39; [package &quot;Matrix&quot;] with 5 slots
-##   .. ..@ x       : num [1:500500] 31.955 -1.314 32.506 0.536 -1.597 ...
+##   .. ..@ x       : num [1:500500] 32.296 0.967 31.173 -0.386 -0.635 ...
 ##   .. ..@ Dim     : int [1:2] 1000 1000
 ##   .. ..@ Dimnames:List of 2
 ##   .. .. ..$ : NULL
@@ -132,26 +132,26 @@ Aspsym
 <pre><code>## List of 1
 ##  $ LU:Formal class &#39;sparseLU&#39; [package &quot;Matrix&quot;] with 5 slots
 ##   .. ..@ L  :Formal class &#39;dtCMatrix&#39; [package &quot;Matrix&quot;] with 7 slots
-##   .. .. .. ..@ i       : int [1:461343] 0 32 38 40 64 69 91 116 120 127 ...
-##   .. .. .. ..@ p       : int [1:1001] 0 48 88 118 162 200 254 303 349 402 ...
+##   .. .. .. ..@ i       : int [1:461704] 0 42 45 90 96 99 143 182 199 202 ...
+##   .. .. .. ..@ p       : int [1:1001] 0 49 96 141 187 223 272 319 374 416 ...
 ##   .. .. .. ..@ Dim     : int [1:2] 1000 1000
 ##   .. .. .. ..@ Dimnames:List of 2
 ##   .. .. .. .. ..$ : NULL
 ##   .. .. .. .. ..$ : NULL
-##   .. .. .. ..@ x       : num [1:461343] 1 0.625 -0.725 -0.625 -0.792 ...
+##   .. .. .. ..@ x       : num [1:461704] 1 -0.915 0.595 -0.588 -0.626 ...
 ##   .. .. .. ..@ uplo    : chr &quot;L&quot;
 ##   .. .. .. ..@ diag    : chr &quot;N&quot;
 ##   .. ..@ U  :Formal class &#39;dtCMatrix&#39; [package &quot;Matrix&quot;] with 7 slots
-##   .. .. .. ..@ i       : int [1:468603] 0 1 2 3 4 5 6 7 8 9 ...
+##   .. .. .. ..@ i       : int [1:467753] 0 1 2 3 4 5 6 7 8 1 ...
 ##   .. .. .. ..@ p       : int [1:1001] 0 1 2 3 4 5 6 7 8 9 ...
 ##   .. .. .. ..@ Dim     : int [1:2] 1000 1000
 ##   .. .. .. ..@ Dimnames:List of 2
 ##   .. .. .. .. ..$ : NULL
 ##   .. .. .. .. ..$ : NULL
-##   .. .. .. ..@ x       : num [1:468603] 3.61 3.27 3.64 3.09 -3.71 ...
+##   .. .. .. ..@ x       : num [1:467753] 3.7 3.43 -3.06 3.72 -3.15 ...
 ##   .. .. .. ..@ uplo    : chr &quot;U&quot;
 ##   .. .. .. ..@ diag    : chr &quot;N&quot;
-##   .. ..@ p  : int [1:1000] 561 863 160 346 276 417 788 584 897 792 ...
+##   .. ..@ p  : int [1:1000] 352 390 88 643 807 318 679 989 33 163 ...
 ##   .. ..@ q  : int [1:1000] 0 1 2 3 4 5 6 7 8 9 ...
 ##   .. ..@ Dim: int [1:2] 1000 1000</code></pre>
 <p>This is similar to the regular LU decomposition <span class="math inline">\(\mathbf{A} = \mathbf{LU}\)</span>, but has two new pivot matrices <span class="math inline">\(\mathbf{P}\)</span>, <span class="math inline">\(\mathbf{Q}\)</span>. The sparse LU decomposes <span class="math inline">\(\mathbf{A} = \mathbf{P}^\top\mathbf{LUQ}\)</span>, where the pivots are chosen such that <span class="math inline">\(\mathbf{L}\)</span> and <span class="math inline">\(\mathbf{U}\)</span> are sparse. This can be seen in the slots <code>@L</code>, <code>@U</code>. Such decomposition-sparsity is neccesary when dealing with sparse matrices; if we required a dense decomposition of the same size as the original matrix, then we would lose all benefit of using a sparse matrix in the first place.</p>
@@ -169,6 +169,8 @@ Aspsym
     
       <a class="basic-alignment left" href="/post/speeding-up-linear-algebra-computations-using-the-woodbury-matrix-identity/">&laquo; Speeding up linear algebra computations using the Woodbury matrix identity</a>
     
+    
+      <a class="basic-alignment left" href="/post/unit-tests-for-expectation-maximisation/">Unit Tests for Expectation Maximisation &raquo;</a>
     
   </div>
 </section>
