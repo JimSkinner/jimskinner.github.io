@@ -66,11 +66,38 @@
     </item>
     
     <item>
+      <title>Medicine</title>
+      <link>/tags/medicine/</link>
+      <pubDate>Mon, 17 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/medicine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Olfaction</title>
+      <link>/tags/olfaction/</link>
+      <pubDate>Mon, 17 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/olfaction/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>R</title>
       <link>/tags/r/</link>
       <pubDate>Sun, 31 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Smell</title>
+      <link>/tags/smell/</link>
+      <pubDate>Mon, 17 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/smell/</guid>
       <description></description>
     </item>
     
@@ -98,6 +125,15 @@
       <pubDate>Wed, 10 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/unit-test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Voc</title>
+      <link>/tags/voc/</link>
+      <pubDate>Mon, 17 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/voc/</guid>
       <description></description>
     </item>
     

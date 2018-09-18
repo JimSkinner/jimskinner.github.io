@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en-uk">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <title>
+    
+    
+     Smell-based disease diagnosis 
+    
+  </title>
+  <link rel="canonical" href="/post/smell-based-disease-diagnosis/">
+
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  
+</head>
+
+<body>
+<section id=nav>
+  <h1><a href="/">Jim Skinner</a></h1>
+  <ul>
+    
+    <li><a href="https://jimskinner.github.io">Home</a></li>
+    
+    <li><a href="https://warwick.ac.uk/JSkinner">Academic</a></li>
+    
+    <li><a href="https://twitter.com/JimRSkinner">Twitter</a></li>
+    
+    <li><a href="https://github.com/JimSkinner">GitHub</a></li>
+    
+  </ul>
+</section>
+
+
+<section id=content>
+  <h1> Smell-based disease diagnosis </h1>
+
+  <div id=sub-header>
+    Jim Skinner · 2018/09/17 · 5 minute read
+  </div>
+
+  <div class="entry-content">
+    <p>I have just submitted my thesis! In celebration, here’s a brief, hopefully interesting description of the application I was working on: disease diagnosis using artificial olfaction (smell).</p>
+<p>It turns out that humans can, with training, diagnose disease using smell, and have been doing so for thousands of years. This was certainly done by Hippocrates around 400BC, who writes in the book <em>Aphorisms</em><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> about using the smell of urine, and spit after being vaporised on hot coals, to inform diagnoses.</p>
+<p>This is far from an isolated of smell in medicine, which is still used to this day: part of the process of diagnosing Bacterial Vaginosis<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> involves “Release of a fishy odour on adding alkali (10% KOH)” to a swab. In-fact there are very many diseases associated with specific odours. Below I have reproduced a table compiled by Wilson and Baietto<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> of published disease odour descriptions, with references dating mostly to the second half of the 19th century.</p>
+<table class="myTable table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Disease
+</th>
+<th style="text-align:left;font-weight: bold;">
+Body source
+</th>
+<th style="text-align:left;font-weight: bold;">
+Descriptive aroma
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Acromegaly
+</td>
+<td style="text-align:left;">
+Body
+</td>
+<td style="text-align:left;">
+Strong, offensive
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Anaerobic infection
+</td>
+<td style="text-align:left;">
+Skin, sweat
+</td>
+<td style="text-align:left;">
+Rotten apples
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Azotemia (prerenal)
+</td>
+<td style="text-align:left;">
+Urine
+</td>
+<td style="text-align:left;">
+Concentrated urine odor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bacterial proteolysis
+</td>
+<td style="text-align:left;">
+Skin
+</td>
+<td style="text-align:left;">
+Over-ripe Camembert
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bacterial vaginosis
+</td>
+<td style="text-align:left;">
+Vaginal discharge
+</td>
+<td style="text-align:left;">
+Amine-like
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bladder infection
+</td>
+<td style="text-align:left;">
+Urine
+</td>
+<td style="text-align:left;">
+Ammonia
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bromhidrosis
+</td>
+<td style="text-align:left;">
+Skin, nose
+</td>
+<td style="text-align:left;">
+Unpleasant
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Darier’s disease
+</td>
+<td style="text-align:left;">
+Buttocks
+</td>
+<td style="text-align:left;">
+Rank, unpleasant odor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Diabetic ketoacidosis
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Rotting apples, acetone
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Congestive heart failure
+</td>
+<td style="text-align:left;">
+Heart (portcaval shunts)
+</td>
+<td style="text-align:left;">
+Dimethyl sulfide
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cystic fibrosis
+</td>
+<td style="text-align:left;">
+Infant stool
+</td>
+<td style="text-align:left;">
+Foul
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Diabetes mellitus
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Acetone-like
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Diphtheria
+</td>
+<td style="text-align:left;">
+Sweat
+</td>
+<td style="text-align:left;">
+Sweet
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Empyema (anaerobic)
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Foul, putrid
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Esophageal diverticulum
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Feculent, foul
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fetor hepaticus
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Newly-mown clover, sweet
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gout
+</td>
+<td style="text-align:left;">
+Skin
+</td>
+<td style="text-align:left;">
+Gouty odor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hydradenitis suppurativa
+</td>
+<td style="text-align:left;">
+Apocrine sweat glands
+</td>
+<td style="text-align:left;">
+Bad body odor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hyperhydrosis
+</td>
+<td style="text-align:left;">
+Body
+</td>
+<td style="text-align:left;">
+Unpleasant body odor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hyperaminoaciduria (Oast-house Syndrome)
+</td>
+<td style="text-align:left;">
+Infant skin
+</td>
+<td style="text-align:left;">
+Dried malt or hops
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hypermethioninemia
+</td>
+<td style="text-align:left;">
+Infant breath
+</td>
+<td style="text-align:left;">
+Sweet, fruity, fishy, boiled cabbage, rancid butter
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Intestinal obstruction
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Feculent, foul
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Intranasal foreign body
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Foul, feculent
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Isovaleric acidemia
+</td>
+<td style="text-align:left;">
+Skin, sweat, breath
+</td>
+<td style="text-align:left;">
+Sweaty feet, cheesy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ketoacidosis (starvation)
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Sweet, fruity, acetone-like
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Liver failure
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Musty fish, raw liver, feculent, mercaptans, dimethyl sulfide
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lung abscess
+</td>
+<td style="text-align:left;">
+Sputum, breath
+</td>
+<td style="text-align:left;">
+Foul, putrid, full
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Maple syrup urine disease
+</td>
+<td style="text-align:left;">
+Sweat, urine, ear wax
+</td>
+<td style="text-align:left;">
+Maple syrup, burnt sugar
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Phenylketonuria
+</td>
+<td style="text-align:left;">
+Infant skin
+</td>
+<td style="text-align:left;">
+Musty, horsey, mousy, sweet, urine
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pneumonia (necrotizing)
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Putrid
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pseudomonas infection
+</td>
+<td style="text-align:left;">
+Skin, sweat
+</td>
+<td style="text-align:left;">
+Grape
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Renal failure (chronic)
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Stale urine
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotavirus gastroenteritis
+</td>
+<td style="text-align:left;">
+Stool
+</td>
+<td style="text-align:left;">
+Full
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rubella
+</td>
+<td style="text-align:left;">
+Sweat
+</td>
+<td style="text-align:left;">
+Freshly plucked feathers
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Schizophrenia
+</td>
+<td style="text-align:left;">
+Sweat
+</td>
+<td style="text-align:left;">
+Mildly acetic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Scrofula
+</td>
+<td style="text-align:left;">
+Body
+</td>
+<td style="text-align:left;">
+Stale beer
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Scurvy
+</td>
+<td style="text-align:left;">
+Sweat
+</td>
+<td style="text-align:left;">
+Putrid
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shigellosis
+</td>
+<td style="text-align:left;">
+Stool
+</td>
+<td style="text-align:left;">
+Rancid
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Smallpox
+</td>
+<td style="text-align:left;">
+Skin
+</td>
+<td style="text-align:left;">
+Pox stench
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Squamous-cell carcinoma
+</td>
+<td style="text-align:left;">
+Skin
+</td>
+<td style="text-align:left;">
+Offensive odor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sweaty feet syndrome
+</td>
+<td style="text-align:left;">
+Urine, sweat, breath
+</td>
+<td style="text-align:left;">
+Foul acetic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trench mouth
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Halitosis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trimethylaminuria
+</td>
+<td style="text-align:left;">
+Skin, urine
+</td>
+<td style="text-align:left;">
+Fishy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tuberculosis lymphadenitis
+</td>
+<td style="text-align:left;">
+Skin
+</td>
+<td style="text-align:left;">
+Stale beer
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tubular necrosis (acute)
+</td>
+<td style="text-align:left;">
+Urine
+</td>
+<td style="text-align:left;">
+Stale water
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Typhoid
+</td>
+<td style="text-align:left;">
+Skin
+</td>
+<td style="text-align:left;">
+Freshly-baked brown bread
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uremia
+</td>
+<td style="text-align:left;">
+Breath
+</td>
+<td style="text-align:left;">
+Fishy, ammonia, urine-like
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vagabond’s disease
+</td>
+<td style="text-align:left;">
+Skin
+</td>
+<td style="text-align:left;">
+Unpleasant
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Varicose ulcers (malignant)
+</td>
+<td style="text-align:left;">
+Leg
+</td>
+<td style="text-align:left;">
+Foul, unpleasant
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yellow fever
+</td>
+<td style="text-align:left;">
+Skin
+</td>
+<td style="text-align:left;">
+Butcher’s shop
+</td>
+</tr>
+</tbody>
+</table>
+<p>Some of these have been given remarkably specific descriptions. We see Fetor hepaticus gives the breath an odour described as “sweet” and “newly-mown clover”, and Rubella causes sweat the smell of “freshly plucked feathers”. All this is quite entertaining, but there is a growing body of evidence that smell can provide a great deal of useful information on the disease state of the body. We are also beginning to understand WHY disease can cause bodily excretions to smell different, and it turns out to be a variety of different reasons, though most are to do with the production of odorous Volatile Organic Compounds (VOCs).</p>
+<p>VOCs are produced naturally in metabolism. If the metabolism is altered, so are the VOCs. One obvious source of VOCs in an infection are those produced by the pathogen. However, many VOCs are produced by the body under stress and due to immune response. These VOCs can be excreted in the breath, urine, stool and sweat, depending on the disease site, and can be detected.</p>
+<p>A trained human nose is sufficient to detect the VOC alterations in certain diseases, but can certainly be improved upon. There has been media coverage of trained dogs able to smell the presence of tumours in breath and urine<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. However, humans and animals are costly to train, and their ability to smell varies with age, wellness, and the time since – and content of – their last meal. For serious, reproducible, large-scale smell-based diagnosis, one would better rely on a machine than an animal.</p>
+<p>Enter ``artificial olfaction’’. Research into building a machine able to smell has been going on since at-least the 1980’s, when Gardner and Bartlett<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> introduced the term “electronic nose” to describe an instrument using an array of heterogeneous sensors to produce an electronic signature characterising the odour of a gas. Modern variations have appeared with desirable properties (the electronic nose sensors would degrade over time), and they typically work by separating out the molecules in a gas according to some chemical property, and measuring the quantity of molecules over the range of separation. For those interested, FAIMS (Field Asymmetric Ion Mobility Spectrometry) and GC-IMS (Gas Chromatography-Ion Mobility Spectrometry) are both state-of-the-art methods for smelling disease.</p>
+<p>The technology looks really very promising, but since the machines are sensitive to such a broad range of VOC signals, this means that almost anything can be a confounder, so studies need to be designed carefully! I am very excited to be beginning a post-doc working with the BreathSpec<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>, assessing the ability to distinguish between bacterial and viral respiratory infections. This is cool because (a): if we can easily detect if an infection is bacterial, we can stop over-prescribing antibiotics; and (b): patients breathe directly into the instrument, removing a LOT of variance introduced by sample collection/capture/storage/experimental batch effects.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://en.wikisource.org/wiki/Aphorisms" class="uri">https://en.wikisource.org/wiki/Aphorisms</a><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p><a href="https://www.bashhguidelines.org/media/1041/bv-2012.pdf" class="uri">https://www.bashhguidelines.org/media/1041/bv-2012.pdf</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Alphus D. Wilson and Manuela Baietto. Advances in Electronic-Nose Technologies Developed for Biomedical Applications. Sensors, 11(1):1105–1176, 2011.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="https://en.wikipedia.org/wiki/Canine_cancer_detection" class="uri">https://en.wikipedia.org/wiki/Canine_cancer_detection</a><a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>e.g., J W Gardner and PN Bartlett. Electronic noses. principles and applications. Measurement Science and Technology, 11(7):1087, 2000.<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p><a href="https://breathspec.com" class="uri">https://breathspec.com</a><a href="#fnref6">↩</a></p></li>
+</ol>
+</div>
+
+  </div>
+
+  <div id=links>
+    
+      <a class="basic-alignment left" href="/post/unit-tests-for-expectation-maximisation/">&laquo; Unit Tests for Expectation Maximisation</a>
+    
+    
+  </div>
+</section>
+
+<section id="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+      
+      
+      if (window.location.hostname == "localhost")
+                return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = '';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+  
+
+
+</body>
+</html>
+

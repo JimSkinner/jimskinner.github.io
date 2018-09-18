@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/smell-based-disease-diagnosis/</loc>
+    <lastmod>2018-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/unit-tests-for-expectation-maximisation/</loc>
     <lastmod>2018-01-10T00:00:00+00:00</lastmod>
   </url>
@@ -42,7 +47,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-01-10T00:00:00+00:00</lastmod>
+    <lastmod>2018-09-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -65,14 +70,32 @@
   </url>
   
   <url>
+    <loc>/tags/medicine/</loc>
+    <lastmod>2018-09-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/olfaction/</loc>
+    <lastmod>2018-09-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/post/</loc>
-    <lastmod>2018-01-10T00:00:00+00:00</lastmod>
+    <lastmod>2018-09-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/r/</loc>
     <lastmod>2017-12-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/smell/</loc>
+    <lastmod>2018-09-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -97,6 +120,12 @@
   <url>
     <loc>/tags/unit-test/</loc>
     <lastmod>2018-01-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/voc/</loc>
+    <lastmod>2018-09-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
